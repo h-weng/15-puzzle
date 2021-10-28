@@ -1,15 +1,38 @@
-puz = [[1, 2, 3, 4], [5, 6, 7, 8], [0, 10, 11, 12], [9, 13, 14, 15]]
-end = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]]
+"""
+
+    15 Puzzle Python Implementation
+    ===============================
+
+    This implementation is based on Breadth First Search and uses functional programming
+
+    15 Puzzle:
+    
+        https://en.wikipedia.org/wiki/15_puzzle
+        https://github.com/MilanPecov/15-Puzzle-Solvers
+        https://www.cs.cmu.edu/afs/cs/academic/class/15859-f01/www/notes/15-puzzle.pdf
+        https://www.whitman.edu/Documents/Academics/Mathematics/2017/Howe.pdf
+
+    Breadth First Search:
+    
+        https://en.wikipedia.org/wiki/Breadth-first_search
+        https://www.cs.cmu.edu/afs/cs/academic/class/15210-s15/www/lectures/bfs-notes.pdf
+    
+"""
+
+puz = [[1, 2, 3, 4], [5, 6, 7, 8], [0, 10, 11, 12], [9, 13, 14, 15]] #jumbled puzzle
+end = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 0]] #puzzle solution
 
 r = len(puz)
 c = len(puz[0])
 
 def swap(a, b, c, d, n):
+    """swap positions using coordinates a,b and c,d, n is for number"""
     p = [list(r) for r in n]
     p[a][b], p[c][d] = p[c][d], p[a][b]
     return p
 
 def getc(v, p):
+    """get the coordinates of a value in a puzzle"""
     if not p:
         p = puz
     for i in range(r):
@@ -18,6 +41,7 @@ def getc(v, p):
                 return i, j
 
 def getm(n):
+    """get moves"""
     m = []
     i, j = getc(0, n)
     if i > 0:
@@ -31,6 +55,7 @@ def getm(n):
     return m
 
 def getinv(p):
+    """get invertion count"""
     icount = 0
     plist = [n for r in p for n in r if n != 0]
     for i in range(len(plist)):
@@ -40,16 +65,20 @@ def getinv(p):
     return icount
 
 def bcount(p):
+    """blank space count"""
     zr, _ = getc(0, p)
     return r - zr
 
 def even(n):
+    """is inversion even"""
     return n % 2 == 0
 
 def odd(n):
+    """is inversion odd"""
     return n % 2 != 0
 
 def solvable(p):
+    """is puzzle solvable"""
     icount = getinv(p)
     bpos = bcount(p)
 
@@ -63,6 +92,7 @@ def solvable(p):
         return False
 
 def bfs(p, e):
+    """breadth first search to solution""" 
     q = [[p]]
     exp = []
     nodes = 0
@@ -87,10 +117,12 @@ def bfs(p, e):
 if not solvable(puz):
     print("[]")
 
+
 paths = bfs(puz, end)
 pu = [i for s in puz for i in s]
-c = []
-d = []
+d = [] #solution list
+
+#find the path and solution to the puzzle
 for p in paths:
     l = [i for s in p for i in s]
     if paths[0] == p:
