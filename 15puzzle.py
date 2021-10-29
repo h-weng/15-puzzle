@@ -117,7 +117,6 @@ def bfs(p, e):
 if not solvable(puz):
     print("[]")
 
-
 paths = bfs(puz, end)
 pu = [i for s in puz for i in s]
 d = [] #solution list
@@ -137,4 +136,5 @@ for p in paths:
                 if l[n] != pu[n] and l[n] != 0:
                     d.append(l[n])
         pu = l
+        
 print(d)
