@@ -55,7 +55,7 @@ def getm(n):
     return m
 
 def getinv(p):
-    """get invertion count"""
+    """get inversion count"""
     icount = 0
     plist = [n for r in p for n in r if n != 0]
     for i in range(len(plist)):
