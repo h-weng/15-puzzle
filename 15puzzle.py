@@ -111,7 +111,7 @@ def bfs(p, e):
         nodes += 1
         if enode == e:
             break
-    exp = nodes
+    #exp = nodes
     return path
 
 if not solvable(puz):
